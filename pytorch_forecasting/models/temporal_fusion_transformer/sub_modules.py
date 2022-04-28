@@ -8,9 +8,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import pdb
-
-
 class TimeDistributed(nn.Module):
     def __init__(self, module: nn.Module, batch_first: bool = False):
         super().__init__()
@@ -449,7 +446,7 @@ class InterpretableMultiHeadAttention(nn.Module):
 
             head_dropout = self.dropout(head)
             heads.append(head_dropout)
-            attns.append(attn) #(B,T)
+            attns.append(attn) #(B,T,D)
             scores.append(score) #(B,1)
 
         head = torch.stack(heads, dim=2) if self.n_head > 1 else heads[0] 
