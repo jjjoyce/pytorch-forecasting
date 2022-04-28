@@ -386,7 +386,10 @@ class ScaledDotProductAttention(nn.Module):
         attn = torch.bmm(q, k.permute(0, 2, 1))  # query-key overlap 
 
         # adding raw score 
-        score = torch.sum(attn*attn,[1,2]) # (B)
+#         score = torch.sum(attn*attn,[1,2]) # (B)
+        
+        # makes more sense
+        score = torch.sum(attn,[1,2]) # (B)
 
         if self.scale:
             dimension = torch.as_tensor(k.size(-1), dtype=attn.dtype, device=attn.device).sqrt()
